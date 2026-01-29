@@ -53,11 +53,13 @@ document.addEventListener('DOMContentLoaded', () => {
         nonIndex++;
 
         // 4. Déplace le bouton
-        const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
-        const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+        const padding = 20;
+        const x = Math.random() * (window.innerWidth - noButton.offsetWidth - padding);
+        const y = Math.random() * (window.innerHeight - noButton.offsetHeight - padding);
+        
         noButton.style.position = 'fixed';
-        noButton.style.left = `${x}px`;
-        noButton.style.top = `${y}px`;
+        noButton.style.left = `${Math.max(padding, x)}px`;
+        noButton.style.top = `${Math.max(padding, y)}px`;
     });
 
     // GESTION DU BOUTON OUI
@@ -88,3 +90,4 @@ document.addEventListener('DOMContentLoaded', () => {
         ouiIndex++;
     });
 });
+
