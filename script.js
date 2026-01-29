@@ -4,68 +4,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('messageContainer');
     const romanticImage = document.getElementById('romanticImage');
 
-    // Messages pour le bouton OUI (qui grossissent)
-    const yesMessages = [
+    // Garde précieusement les URLs de tes images ici
+    const imageInitiale = "Lien_De_Ton_Image_Romantique.jpg";
+    const imageTriste = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXp3eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA3NTDCf8r/giphy.gif";
+
+    const messagesOui = [
         "OMG ! Quelle joie !",
         "Je suis tellement heureux(se) !",
         "C'est la meilleure réponse !",
         "Je t'aime ! ❤️"
     ];
 
-    // Messages pour le bouton NON
-    const noMessages = [
+    const messagesNon = [
         "Es-tu sûr de toi ?",
         "Réfléchis bien...",
         "Je te donne une autre chance !",
-        "Mon petit cœur se brise... 💔",
-        "Mauvais bouton, réessaie ! 😉"
+        "Vraiment ? 🥺"
     ];
 
-    let yesIndex = 0;
-    let noIndex = 0;
+    let ouiIndex = 0;
+    let nonIndex = 0;
     let currentFontSize = 1.5;
 
-    // Gère le bouton "Non"
+    // GESTION DU BOUTON NON
     noButton.addEventListener('click', () => {
-        // 1. Changer l'image pour une image triste/dubitative
-        // Remplace l'URL par une image de ton choix
-        romanticImage.src = "angry_dudu.jpg"; 
+        // 1. Change l'image
+        romanticImage.src = imageTriste;
 
-        // 2. Afficher un message de "No"
-        messageContainer.innerHTML = `<p style="color: #555; font-style: italic;">${noMessages[noIndex % noMessages.length]}</p>`;
-        noIndex++;
+        // 2. Affiche le message de doute (remplace le précédent)
+        messageContainer.innerHTML = `<p style="color: #c71585; font-size: 1.5em; font-weight: bold;">${messagesNon[nonIndex % messagesNon.length]}</p>`;
+        nonIndex++;
 
-        // 3. Faire bouger le bouton (optionnel, mais drôle)
+        // 3. Déplace le bouton pour le rendre difficile à cliquer
         const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
         const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
-        noButton.style.position = 'absolute';
+        noButton.style.position = 'fixed'; // 'fixed' pour qu'il bouge partout sur l'écran
         noButton.style.left = `${x}px`;
         noButton.style.top = `${y}px`;
     });
 
-    // Gère le bouton "Oui"
+    // GESTION DU BOUTON OUI
     yesButton.addEventListener('click', () => {
-        // 1. Remettre l'image romantique de base
-        romanticImage.src = "https://picsum.photos/id/1084/600/400"; 
+        // 1. Remet l'image de base (ou une encore plus joyeuse)
+        romanticImage.src = imageInitiale;
 
-        // 2. Créer le message qui grossit
-        const msg = document.createElement('p');
-        msg.textContent = yesMessages[yesIndex % yesMessages.length];
-        msg.style.fontSize = `${currentFontSize}em`;
-        msg.style.fontWeight = "bold";
-        msg.style.color = "#ff69b4";
-        msg.style.transition = "all 0.5s ease";
-        
-        // On nettoie les messages de "Non" avant d'ajouter les "Oui"
-        if (yesIndex === 0) messageContainer.innerHTML = ''; 
-        
-        messageContainer.appendChild(msg);
+        // 2. Si c'est le premier clic sur "Oui", on vide les messages de doute
+        if (ouiIndex === 0) {
+            messageContainer.innerHTML = '';
+            noButton.style.display = 'none'; // On cache le bouton "No" pour de bon
+        }
 
-        // 3. Augmenter la taille pour le prochain clic
+        // 3. Crée le message qui grossit
+        const newMsg = document.createElement('p');
+        newMsg.textContent = messagesOui[ouiIndex % messagesOui.length];
+        newMsg.style.fontSize = `${currentFontSize}em`;
+        newMsg.style.color = "#ff69b4";
+        newMsg.style.fontWeight = "bold";
+        newMsg.style.margin = "10px 0";
+        
+        messageContainer.appendChild(newMsg);
+
+        // 4. On fait grossir le texte pour le prochain coup
         currentFontSize += 0.5;
-        yesIndex++;
-
-        // Remettre le bouton No à sa place si on veut
-        noButton.style.position = 'static';
+        ouiIndex++;
     });
 });
