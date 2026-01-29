@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('messageContainer');
     const romanticImage = document.getElementById('romanticImage');
 
-    // Garde précieusement les URLs de tes images ici
+    // Chemins vers tes images
     const imageInitiale = "./romantic_image.jpg";
     const imageTriste = "./angry_dudu.jpg";
 
@@ -28,47 +28,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GESTION DU BOUTON NON
     noButton.addEventListener('click', () => {
-        // 1. Change l'image
+        // 1. Change l'image pour l'image triste
         romanticImage.src = imageTriste;
 
-        // 2. Affiche le message de doute (remplace le précédent)
-        messageContainer.innerHTML = `<p style="color: #c71585; font-size: 1.5em; font-weight: bold;">${messagesNon[nonIndex % messagesNon.length]}</p>`;
+        // 2. Création du message de doute
+        const newNoMsg = document.createElement('p');
+        newNoMsg.textContent = messagesNon[nonIndex % messagesNon.length];
+        newNoMsg.style.color = "#c71585";
+        newNoMsg.style.fontSize = "1.3em";
+        newNoMsg.style.fontWeight = "bold";
+        newNoMsg.style.fontStyle = "italic";
+
+        // 3. AJOUT EN HAUT (Prepend)
+        messageContainer.prepend(newNoMsg);
         nonIndex++;
 
-        // 3. Déplace le bouton pour le rendre difficile à cliquer
+        // 4. Déplace le bouton n'importe où sur l'écran
         const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
         const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
-        noButton.style.position = 'fixed'; // 'fixed' pour qu'il bouge partout sur l'écran
+        noButton.style.position = 'fixed';
         noButton.style.left = `${x}px`;
         noButton.style.top = `${y}px`;
     });
 
     // GESTION DU BOUTON OUI
     yesButton.addEventListener('click', () => {
-        // 1. Remet l'image de base (ou une encore plus joyeuse)
+        // 1. Remet l'image de base
         romanticImage.src = imageInitiale;
 
-        // 2. Si c'est le premier clic sur "Oui", on vide les messages de doute
+        // 2. Premier clic sur Oui : on nettoie les messages de "Non" et on cache le bouton
         if (ouiIndex === 0) {
             messageContainer.innerHTML = '';
-            noButton.style.display = 'none'; // On cache le bouton "No" pour de bon
+            noButton.style.display = 'none';
         }
 
-        // 3. Crée le message qui grossit
+        // 3. Création du message de joie
         const newMsg = document.createElement('p');
         newMsg.textContent = messagesOui[ouiIndex % messagesOui.length];
         newMsg.style.fontSize = `${currentFontSize}em`;
-        newMsg.style.color = "#ff69b4";
+        newMsg.style.color = "#ff4d6d";
         newMsg.style.fontWeight = "bold";
-        newMsg.style.margin = "10px 0";
-        
-        messageContainer.appendChild(newMsg);
 
-        // 4. On fait grossir le texte pour le prochain coup
+        // 4. AJOUT EN HAUT (Prepend)
+        messageContainer.prepend(newMsg);
+
+        // 5. Augmente la taille pour le prochain
         currentFontSize += 0.5;
         ouiIndex++;
     });
 });
-
-
-
