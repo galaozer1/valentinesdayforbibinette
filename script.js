@@ -4,83 +4,68 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('messageContainer');
     const romanticImage = document.getElementById('romanticImage');
 
-    const messages = [
+    // Messages pour le bouton OUI (qui grossissent)
+    const yesMessages = [
         "OMG ! Quelle joie !",
         "Je suis tellement heureux(se) !",
         "C'est la meilleure réponse !",
-        "Mon cœur s'envole !",
-        "Tu es la personne la plus incroyable !",
-        "Je t'aime !"
+        "Je t'aime ! ❤️"
     ];
 
-    let messageIndex = 0;
-    let currentFontSize = 1.5; // Taille de base en em
+    // Messages pour le bouton NON
+    const noMessages = [
+        "Es-tu sûr de toi ?",
+        "Réfléchis bien...",
+        "Je te donne une autre chance !",
+        "Mon petit cœur se brise... 💔",
+        "Mauvais bouton, réessaie ! 😉"
+    ];
 
-    // Fonction pour générer un nombre aléatoire entre min et max (inclus)
-    function getRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    let yesIndex = 0;
+    let noIndex = 0;
+    let currentFontSize = 1.5;
 
     // Gère le bouton "Non"
-    noButton.addEventListener('mouseover', () => {
-        // Déplace le bouton "Non" de manière aléatoire
-        const containerRect = noButton.parentElement.getBoundingClientRect();
-        const buttonRect = noButton.getBoundingClientRect();
+    noButton.addEventListener('click', () => {
+        // 1. Changer l'image pour une image triste/dubitative
+        // Remplace l'URL par une image de ton choix
+        romanticImage.src = "angry_dudu.jpg"; 
 
-        let newX = getRandomNumber(0, containerRect.width - buttonRect.width);
-        let newY = getRandomNumber(0, containerRect.height - buttonRect.height);
+        // 2. Afficher un message de "No"
+        messageContainer.innerHTML = `<p style="color: #555; font-style: italic;">${noMessages[noIndex % noMessages.length]}</p>`;
+        noIndex++;
 
-        // Assurez-vous que le bouton ne sorte pas du conteneur et ne chevauche pas trop le bouton Yes
-        // Très basique, mais mieux que rien pour éviter le Yes
-        if (newX + buttonRect.width > yesButton.offsetLeft && newX < yesButton.offsetLeft + yesButton.offsetWidth) {
-             newX = (newX < yesButton.offsetLeft) ? newX - buttonRect.width : newX + buttonRect.width;
-        }
-
-
+        // 3. Faire bouger le bouton (optionnel, mais drôle)
+        const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
         noButton.style.position = 'absolute';
-        noButton.style.left = `${newX}px`;
-        noButton.style.top = `${newY}px`;
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
     });
-
-    noButton.addEventListener('click', (event) => {
-        event.preventDefault(); // Empêche toute action par défaut si le bouton avait un lien
-        // Simule un clic sur le bouton "Yes"
-        yesButton.click();
-    });
-
 
     // Gère le bouton "Oui"
     yesButton.addEventListener('click', () => {
-        // Réinitialise la position du bouton "No"
-        noButton.style.position = 'static'; // Remet le bouton "No" à sa place normale
-        noButton.style.left = '';
-        noButton.style.top = '';
+        // 1. Remettre l'image romantique de base
+        romanticImage.src = "https://picsum.photos/id/1084/600/400"; 
 
+        // 2. Créer le message qui grossit
+        const msg = document.createElement('p');
+        msg.textContent = yesMessages[yesIndex % yesMessages.length];
+        msg.style.fontSize = `${currentFontSize}em`;
+        msg.style.fontWeight = "bold";
+        msg.style.color = "#ff69b4";
+        msg.style.transition = "all 0.5s ease";
+        
+        // On nettoie les messages de "Non" avant d'ajouter les "Oui"
+        if (yesIndex === 0) messageContainer.innerHTML = ''; 
+        
+        messageContainer.appendChild(msg);
 
-        // Crée un nouveau message
-        const messageElement = document.createElement('p');
-        messageElement.classList.add('message');
-        messageElement.textContent = messages[messageIndex % messages.length]; // Boucle sur les messages
+        // 3. Augmenter la taille pour le prochain clic
+        currentFontSize += 0.5;
+        yesIndex++;
 
-        // Augmente la taille de la police et la marge pour les prochains messages
-        currentFontSize += 0.3; // Augmente la taille de 0.3em à chaque clic
-        messageElement.style.fontSize = `${currentFontSize}em`;
-        messageElement.style.marginTop = `${30 + (messageIndex * 5)}px`; // Augmente la marge
-
-        messageContainer.appendChild(messageElement);
-
-        // Affiche le message avec une petite animation
-        setTimeout(() => {
-            messageElement.classList.add('show');
-        }, 50); // Un léger délai pour l'animation
-
-        messageIndex++;
-
-        // Optionnel : changer l'image après plusieurs clics ?
-        // if (messageIndex === 3) {
-        //     romanticImage.src = 'another-romantic-image.jpg';
-        // }
+        // Remettre le bouton No à sa place si on veut
+        noButton.style.position = 'static';
     });
-
-
 });
