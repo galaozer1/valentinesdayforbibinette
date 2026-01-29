@@ -4,22 +4,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('messageContainer');
     const romanticImage = document.getElementById('romanticImage');
 
-    // Chemins vers tes images
-    const imageInitiale = "./romantic_image.jpg";
-    const imageTriste = "./angry_dudu.jpg";
+    // --- CONFIGURATION DES IMAGES ---
+    const imageInitiale = "./romantic_image.jpg"; // L'image au chargement
+    const imageTriste = "./angry_dudu.jpg";       // L'image quand elle clique sur Non
+    const imageOui = "./happy_victory.jpg";       // L'image quand elle clique sur Oui
 
     const messagesOui = [
         "OMG ! Quelle joie !",
-        "Je suis tellement heureux !",
-        "C'est la meilleure réponse !",
+        "Tu ne le regretteras pas !",
+        "Tu as très bon goût !",
+        "Normal bibinet le plus bg !",
+        "Rendez-vous ce soir hihi",
         "Je t'aime ! ❤️"
     ];
 
     const messagesNon = [
-        "Es-tu sûr de toi ?",
+        "Es-tu sûre de toi ?",
         "Réfléchis bien...",
         "Je te donne une autre chance !",
-        "Vraiment ? 🥺"
+        "Bon ça suffit les conneries maintenant !!!!",
+        "Tu te trouves drôle ?????",
+        "CA SUFFIT J'AI DIT !!!",
+        "Ultime chance !!!!",
+        "Vraiment ? 🥺", // La virgule était manquante ici
+        "Non je rigole, t'as pas le choix de toute façon !",
+        "Allez, clique sur oui maintenant !"
     ];
 
     let ouiIndex = 0;
@@ -28,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GESTION DU BOUTON NON
     noButton.addEventListener('click', () => {
-        // 1. Change l'image pour l'image triste
+        // 1. Change l'image pour l'image triste/fâchée
         romanticImage.src = imageTriste;
 
         // 2. Création du message de doute
@@ -39,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         newNoMsg.style.fontWeight = "bold";
         newNoMsg.style.fontStyle = "italic";
 
-        // 3. AJOUT EN HAUT (Prepend)
+        // 3. AJOUT EN HAUT
         messageContainer.prepend(newNoMsg);
         nonIndex++;
 
-        // 4. Déplace le bouton n'importe où sur l'écran
+        // 4. Déplace le bouton
         const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
         const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
         noButton.style.position = 'fixed';
@@ -53,13 +62,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GESTION DU BOUTON OUI
     yesButton.addEventListener('click', () => {
-        // 1. Remet l'image de base
-        romanticImage.src = imageInitiale;
+        // 1. Change l'image pour l'image de JOIE / VICTOIRE
+        romanticImage.src = imageOui;
 
         // 2. Premier clic sur Oui : on nettoie les messages de "Non" et on cache le bouton
         if (ouiIndex === 0) {
             messageContainer.innerHTML = '';
             noButton.style.display = 'none';
+            // On remet le bouton Yes au centre si besoin (optionnel)
+            yesButton.style.margin = "0 auto";
         }
 
         // 3. Création du message de joie
@@ -69,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newMsg.style.color = "#ff4d6d";
         newMsg.style.fontWeight = "bold";
 
-        // 4. AJOUT EN HAUT (Prepend)
+        // 4. AJOUT EN HAUT
         messageContainer.prepend(newMsg);
 
         // 5. Augmente la taille pour le prochain
