@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const messagesOui = [
         "OMG ! Quelle joie !",
-        "Je suis tellement heureux(se) !",
+        "Je suis tellement heureux !",
         "C'est la meilleure réponse !",
         "Je t'aime ! ❤️"
     ];
@@ -69,4 +69,5 @@ document.addEventListener('DOMContentLoaded', () => {
         ouiIndex++;
     });
 });
+
 
