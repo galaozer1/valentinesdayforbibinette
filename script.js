@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const romanticImage = document.getElementById('romanticImage');
 
     // Garde précieusement les URLs de tes images ici
-    const imageInitiale = "Lien_De_Ton_Image_Romantique.jpg";
-    const imageTriste = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXp3eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/OPU6wUKARA3NTDCf8r/giphy.gif";
+    const imageInitiale = "romantic_image.jpg";
+    const imageTriste = "angry_dudu.jpg";
 
     const messagesOui = [
         "OMG ! Quelle joie !",
@@ -69,3 +69,4 @@ document.addEventListener('DOMContentLoaded', () => {
         ouiIndex++;
     });
 });
+
