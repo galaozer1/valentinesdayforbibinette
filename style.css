@@ -1,78 +1,82 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Aligné en haut pour laisser de la place aux messages */
     min-height: 100vh;
     margin: 0;
+    padding: 20px;
     background-color: #ffeef8;
-    text-align: center;
+    box-sizing: border-box;
 }
 
 .container {
     background: white;
-    padding: 2rem;
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 500px;
-    width: 90%;
-    min-height: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    max-width: 450px; /* Largeur idéale sur mobile et PC */
+    text-align: center;
 }
 
-.image-wrapper {
+h1 {
+    font-size: 1.5rem;
+    color: #ff4d6d;
+    margin-bottom: 20px;
+}
+
+/* LE CADRE IMAGE FIXE */
+.image-container {
     width: 100%;
-    height: 250px;
+    height: 300px; /* Hauteur fixe pour toutes les images */
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: 15px;
+    background-color: #f9f9f9;
     margin-bottom: 20px;
 }
 
 #romanticImage {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 15px;
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* L'image s'adapte sans être coupée ni déformée */
 }
 
 .buttons {
     display: flex;
-    gap: 20px;
+    justify-content: center;
+    gap: 15px;
     margin-bottom: 20px;
-    height: 50px; /* Réserve l'espace pour éviter les sauts */
+    min-height: 50px;
 }
 
 button {
-    padding: 10px 25px;
-    font-size: 1.2rem;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: bold;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    transition: transform 0.2s;
+    transition: transform 0.1s;
 }
 
-#yesButton {
-    background-color: #ff4d6d;
-    color: white;
-}
+#yesButton { background-color: #ff4d6d; color: white; }
+#noButton { background-color: #ffccd5; color: #ff4d6d; }
 
-#noButton {
-    background-color: #ffccd5;
-    color: #ff4d6d;
-    z-index: 1000; /* Pour qu'il passe au-dessus du reste quand il bouge */
-}
-
+/* ZONE DES MESSAGES */
 #messageContainer {
+    width: 100%;
+    max-height: 300px; /* Évite que la page devienne infinie */
+    overflow-y: auto; /* Permet de scroller dans les messages si besoin */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    gap: 10px;
 }
 
 p {
-    margin: 10px 0;
-    line-height: 1.2;
+    margin: 5px 0;
+    word-wrap: break-word; /* Évite que les gros textes dépassent */
 }
