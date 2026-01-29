@@ -83,6 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Charger une image romantique par défaut (vous pouvez la remplacer)
-    romanticImage.src = 'https://picsum.photos/id/1084/600/400'; // Exemple d'image aléatoire
-    romanticImage.alt = 'Un couple romantique se tenant la main au coucher du soleil';
+    romanticImage.src = "romantic_image.jpg"; // Exemple d'image aléatoire
+    romanticImage.alt = 'Bubu Dudu';
 });
