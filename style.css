@@ -1,0 +1,85 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f7e6f9; /* Doux rose-violet */
+    color: #6a0572; /* Couleur texte principal */
+    text-align: center;
+}
+
+.container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    color: #c71585; /* Rose plus prononcé */
+    margin-bottom: 25px;
+    font-size: 2.5em;
+}
+
+#romanticImage {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#yesButton {
+    background-color: #ff69b4; /* Rose vif */
+    color: white;
+}
+
+#yesButton:hover {
+    background-color: #e04b9b;
+    transform: scale(1.05);
+}
+
+#noButton {
+    background-color: #ffe4e1; /* Rose pâle */
+    color: #c71585;
+}
+
+#noButton:hover {
+    background-color: #f8c3cd;
+    transform: scale(1.05);
+}
+
+.message {
+    margin-top: 30px;
+    color: #d10072; /* Message couleur */
+    font-weight: bold;
+    opacity: 0; /* Caché au début */
+    transition: font-size 0.5s ease, opacity 0.5s ease, transform 0.3s ease;
+    transform: scale(0.8);
+}
+
+.message.show {
+    opacity: 1;
+    transform: scale(1);
+}
