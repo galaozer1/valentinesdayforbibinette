@@ -82,7 +82,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // }
     });
 
-    // Charger une image romantique par défaut (vous pouvez la remplacer)
-    romanticImage.src = "romantic_image.jpg"; // Exemple d'image aléatoire
-    romanticImage.alt = 'Bubu Dudu';
+
 });
