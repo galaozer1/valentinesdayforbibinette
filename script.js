@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const romanticImage = document.getElementById('romanticImage');
 
     // Garde précieusement les URLs de tes images ici
-    const imageInitiale = "romantic_image.jpg";
-    const imageTriste = "angry_dudu.jpg";
+    const imageInitiale = "./romantic_image.jpg";
+    const imageTriste = "./angry_dudu.jpg";
 
     const messagesOui = [
         "OMG ! Quelle joie !",
@@ -69,5 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ouiIndex++;
     });
 });
+
 
 
