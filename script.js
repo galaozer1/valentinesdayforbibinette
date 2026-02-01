@@ -3,19 +3,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const yesButton = document.getElementById('yesButton');
     const messageContainer = document.getElementById('messageContainer');
     const romanticImage = document.getElementById('romanticImage');
+    const mainTitle = document.getElementById('mainTitle'); // On récupère le titre
 
-    // --- CONFIGURATION DES IMAGES ---
-    const imageInitiale = "./romantic_image.jpg"; // L'image au chargement
-    const imageTriste = "./angry_dudu.jpg";       // L'image quand elle clique sur Non
-    const imageOui = "./happy_victory.jpg";       // L'image quand elle clique sur Oui
+    const imageInitiale = "./romantic_image.jpg";
+    const imageTriste = "./angry_dudu.jpg";
+    const imageOui = "./happy_victory.jpg";
 
     const messagesOui = [
         "OMG ! Quelle joie !",
         "Tu ne le regretteras pas !",
         "Tu as très bon goût !",
         "Normal bibinet le plus bg !",
-        "Rendez-vous ce soir hihi",
-        "Je t'aime ! ❤️"
+        "Rendez-vous le 14 hihi",
+        "Je t'aime ! ❤️",
+        "Encore un petit clic ? ❤️",
+        "Tu ne peux plus t'arrêter n'est-ce pas ?",
+        "Bon, j'ai compris, tu m'aimes trop !"
+    ];
+
+    // On change aussi le texte du bouton Yes au fur et à mesure
+    const boutonsTextes = [
+        "Oui !",
+        "Encore Oui !",
+        "Toujours Oui !",
+        "Absolument !",
+        "À la folie !",
+        "Pour la vie !"
     ];
 
     const messagesNon = [
@@ -25,8 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "Bon ça suffit les conneries maintenant !!!!",
         "Tu te trouves drôle ?????",
         "CA SUFFIT J'AI DIT !!!",
-        "Ultime chance !!!!",
-        "Vraiment ? 🥺", // La virgule était manquante ici
+        "Dernière chance !!!!",
+        "Vraiment ? 🥺",
         "Non je rigole, t'as pas le choix de toute façon !",
         "Allez, clique sur oui maintenant !"
     ];
@@ -35,59 +48,51 @@ document.addEventListener('DOMContentLoaded', () => {
     let nonIndex = 0;
     let currentFontSize = 1.5;
 
-    // GESTION DU BOUTON NON
     noButton.addEventListener('click', () => {
-        // 1. Change l'image pour l'image triste/fâchée
         romanticImage.src = imageTriste;
-
-        // 2. Création du message de doute
         const newNoMsg = document.createElement('p');
         newNoMsg.textContent = messagesNon[nonIndex % messagesNon.length];
         newNoMsg.style.color = "#c71585";
         newNoMsg.style.fontSize = "1.3em";
         newNoMsg.style.fontWeight = "bold";
         newNoMsg.style.fontStyle = "italic";
-
-        // 3. AJOUT EN HAUT
         messageContainer.prepend(newNoMsg);
         nonIndex++;
 
-        // 4. Déplace le bouton
-        const padding = 20;
-        const x = Math.random() * (window.innerWidth - noButton.offsetWidth - padding);
-        const y = Math.random() * (window.innerHeight - noButton.offsetHeight - padding);
-        
+        const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
         noButton.style.position = 'fixed';
-        noButton.style.left = `${Math.max(padding, x)}px`;
-        noButton.style.top = `${Math.max(padding, y)}px`;
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
     });
 
-    // GESTION DU BOUTON OUI
     yesButton.addEventListener('click', () => {
-        // 1. Change l'image pour l'image de JOIE / VICTOIRE
         romanticImage.src = imageOui;
 
-        // 2. Premier clic sur Oui : on nettoie les messages de "Non" et on cache le bouton
         if (ouiIndex === 0) {
             messageContainer.innerHTML = '';
             noButton.style.display = 'none';
-            // On remet le bouton Yes au centre si besoin (optionnel)
-            yesButton.style.margin = "0 auto";
+            mainTitle.textContent = "YAY ! Je savais ! 😍"; // On change le titre au premier clic
         }
 
-        // 3. Création du message de joie
+        // --- LA MAGIE POUR CONTINUER À CLIQUER ---
+        // 1. On change le texte du bouton pour donner envie de recliquer
+        yesButton.textContent = boutonsTextes[ouiIndex % boutonsTextes.length];
+
+        // 2. On crée le message de joie
         const newMsg = document.createElement('p');
         newMsg.textContent = messagesOui[ouiIndex % messagesOui.length];
         newMsg.style.fontSize = `${currentFontSize}em`;
         newMsg.style.color = "#ff4d6d";
         newMsg.style.fontWeight = "bold";
+        newMsg.style.animation = "popIn 0.3s ease-out"; // Petite animation
 
-        // 4. AJOUT EN HAUT
         messageContainer.prepend(newMsg);
 
-        // 5. Augmente la taille pour le prochain
-        currentFontSize += 0.5;
+        // 3. On fait grossir le texte ET le bouton !
+        currentFontSize += 0.3;
+        yesButton.style.transform = `scale(${1 + ouiIndex * 0.1})`; // Le bouton grossit aussi légèrement
+        
         ouiIndex++;
     });
 });
-
